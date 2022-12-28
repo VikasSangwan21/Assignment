@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:open:e2e": "cypress open --config-file cypress/config/ui-config.config.js",
+    "cypress:run:e2e": "cypress run --config-file cypress/config/ui-config.config.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/VikasSangwan21/Assignment/issues"
   },
-  "homepage": "https://github.com/VikasSangwan21/Assignment#readme"
+  "homepage": "https://github.com/VikasSangwan21/Assignment#readme",
+  "dependencies": {
+    "cypress": "^12.2.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.4"
+  }
 }
