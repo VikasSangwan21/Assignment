@@ -81,7 +81,34 @@ describe('', ()=>{
         
     })
 
-    it('Remove one of the added books', ()=>{
-
+    // repeat adding same list to verify negetive scenario
+    it('Add a list of books which already exist', ()=>{
+        cy.authenticateToolsQA(userName, 'tesT@123').then((token) =>{
+            cy.request({
+                method: 'POST',
+                url : endpoints.updateBooks,
+                failOnStatusCode: false,
+                headers : {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+token
+                },
+                body :{
+                    "userId": userId,
+                    "collectionOfIsbns": [
+                      {
+                        "isbn": testData.isbn
+                      }
+                    ]
+                  }
+            }).then((response) =>{
+                expect(response.status).eq(400);
+                expect(response.body).has.property('message', testData.bookExistsMsg);
+    
+            }); 
+        })
+        
+        
     })
+
 })
