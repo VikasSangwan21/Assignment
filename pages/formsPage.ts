@@ -17,8 +17,10 @@ class FormsPage{
     monthDropDown = '.react-datepicker__month-select';
     yearDropDown = '.react-datepicker__year-select';
     monthDays = '.react-datepicker__day:not(.react-datepicker__day--outside-month)';
-    state = '#state';
+    state = '#state > div > div.css-1wy0on6 > div > svg';
     city = '#city';
+    googleAdFrame = '#adplus-anchor';
+    submissionSuccessMsg = '#example-modal-sizes-title-lg';
 
     // Broken Links-Images
     brokenLinksImageLink = '#item-6';
@@ -72,6 +74,10 @@ class FormsPage{
         return cy.get(this.brokenImageImg);
     }
 
+    get successMessage(){
+        return cy.get(this.submissionSuccessMsg);
+    }
+
     selectGender(gender : string){
         cy.get("div.custom-radio>input[value='"+gender+"']").click({force:true});
     }
@@ -82,7 +88,7 @@ class FormsPage{
         let month = dob.split(" ")[1];
         let day = dob.split(" ")[0];
         cy.get(this.monthDropDown).select(month);
-        cy.get(this.yearDropDown).select(year);
+        cy.get(this.yearDropDown).select(year).wait(500);
         cy.get(this.monthDays).contains(day).click();
 
     }
@@ -95,6 +101,13 @@ class FormsPage{
     selectCity(city: string){
         cy.get(this.city).click();
         cy.contains(city).click();
+    }
+
+
+    hideGoogleAds(){
+        cy.get(this.googleAdFrame).invoke('attr', 'style', 'display: none')
+        .should('have.attr', 'style', 'display: none');
+        cy.wait(500);
     }
 }
 
