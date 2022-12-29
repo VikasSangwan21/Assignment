@@ -10,7 +10,26 @@
 //
 // Custom command to drag and drop an element
 import '@4tw/cypress-drag-drop'
- Cypress.Commands.add('dragAndDrop', (source , destination) => { 
+
+Cypress.Commands.add('authenticateToolsQA', (username , password) => { 
+  cy.request({
+    method: 'POST',
+    url : 'https://demoqa.com/Account/v1/GenerateToken',
+    failOnStatusCode: false,
+    headers : {
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body : {
+        'userName': username,
+        'password': password
+    }
+}).then((response) =>{
+    return response.body.token;
+});
+});
+
+Cypress.Commands.add('dragAndDrop', (source , destination) => { 
 
     const dataTransfer = new DataTransfer();
    

@@ -9,13 +9,13 @@ module.exports = defineConfig({
   e2e: {  
    baseUrl: "https://demoqa.com/",
    specPattern:[
-      "cypress/e2e/ui-test/*"
-    ],
+    "cypress/e2e/api-test/*"
+  ],
    env: {
     commandDelay: 20,
-    },
+  },
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-  }
+  },
 });

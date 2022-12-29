@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cypress:open:e2e": "cypress open --config-file cypress/config/ui-config.config.js",
-    "cypress:run:e2e": "cypress run --config-file cypress/config/ui-config.config.js"
+    "cypress:open:ui": "cypress open --config-file cypress/config/ui-config.config.js",
+    "cypress:run:ui": "cypress run --config-file cypress/config/ui-config.config.js",
+    "cypress:open:api": "cypress open --config-file cypress/config/api-config.config.js",
+    "cypress:run:api": "cypress run --config-file cypress/config/api-config.config.js"
   },
   "repository": {
     "type": "git",
