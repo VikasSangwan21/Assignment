@@ -1,0 +1,4 @@
+{
+    "createUser":"Account/v1/User",
+    "updateBooks":"BookStore/v1/Books"
+}

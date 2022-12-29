@@ -1,18 +1,18 @@
-import widgetsPage from "../../../pages/interactionsPage";
-import homePage from "../../../pages/homePage";
 import 'cypress-file-upload';
 
-let createUserData = require ('../../fixtures/createAccount_Api.json');
+let endpoints = require ('../../fixtures/api_endPoints.json');
+let testData = require ('../../fixtures/api_testData.json');
+let userId = '';
+let userName = '';
 
 describe('', ()=>{
     
-
     // test if user is created successfully and response has required fields
-    it.only('Creation of user account', ()=>{
-        let userName = 'test'+Date.now();
+    it('Creation of user account', ()=>{
+        userName = 'test'+Date.now();
         cy.request({    
             method: 'POST',
-            url : 'Account/v1/User',
+            url : endpoints.createUser,
             headers : {
                 'accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -26,16 +26,17 @@ describe('', ()=>{
             expect(response.body).has.property('username',userName);
             expect(response.body).has.property('userID');
             expect(response.body).has.property('books');
+            userId = response.body.userID;
 
         });
     })
 
     // Negetive scenario password criteria 
-    it('Creation of user account', ()=>{
+    it('Creation of user account with invalid password', ()=>{
         let userName = 'test'+Date.now();
         cy.request({
             method: 'POST',
-            url : 'Account/v1/User',
+            url : endpoints.createUser,
             failOnStatusCode: false,
             headers : {
                 'accept': 'application/json',
@@ -47,33 +48,31 @@ describe('', ()=>{
             }
         }).then((response) =>{
             expect(response.status).eq(400);
-            expect(response.body).has.property('message', "Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer.");
+            expect(response.body).has.property('message', testData.passwordReqMsg);
 
         });
     })
 
-    it.only('Add a list of books', ()=>{
-        cy.authenticateToolsQA('userName1231234', 'tesT@123').then((token) =>{
+    it('Add a list of books', ()=>{
+        cy.authenticateToolsQA(userName, 'tesT@123').then((token) =>{
             cy.request({
                 method: 'POST',
-                url : 'BookStore/v1/Books',
+                url : endpoints.updateBooks,
                 headers : {
                     'accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token
                 },
                 body :{
-                    "userId": "f22bea4e-a5e2-472d-88f3-c8b86778f9a8",
+                    "userId": userId,
                     "collectionOfIsbns": [
                       {
-                        "isbn": "9781449325862"
+                        "isbn": testData.isbn
                       }
                     ]
                   }
             }).then((response) =>{
                 expect(response.isOkStatusCode);
-                expect(response.body).has.property('username');
-                expect(response.body).has.property('userID');
                 expect(response.body).has.property('books');
     
             }); 
