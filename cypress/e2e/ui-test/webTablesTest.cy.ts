@@ -66,4 +66,44 @@ describe('', ()=>{
 
 
     })
+
+    it('Verify user can edit the row in a table', ()=>{
+      // Navigate to Elements
+      homePage.elements.click();
+
+      // Edit row in webtable
+      elementsPage.webTables.click();
+      elementsPage.editSecondRow.click();
+
+      // update details
+      elementsPage.firstName
+      .clear()
+      .type(testData.updatedFirstName);
+
+      elementsPage.lastName
+      .clear()
+      .type(testData.updatedLastName);
+
+      elementsPage.submit.click();
+
+      // Verify updated details
+      elementsPage.recordRows.eq(1).find('div').eq(0).should('have.text', testData.updatedFirstName);
+      elementsPage.recordRows.eq(1).find('div').eq(1).should('have.text', testData.updatedLastName);
+
+    })
+
+    it('Verify broken image', ()=>{
+      // Navigate to Elements
+      homePage.elements.click();
+
+      // Verify broken Image
+      elementsPage.brokenLinkImages.click();
+      elementsPage.brokenImage.should('be.visible').and(($img) => {
+        // "naturalWidth" and "naturalHeight" are set when the image loads
+        expect($img[0].naturalWidth).to.be.equal(0);
+        expect($img[0].naturalHeight).to.be.equal(0)
+      })
+
+    })
+
 })

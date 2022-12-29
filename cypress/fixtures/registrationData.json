@@ -4,5 +4,7 @@
   "age":"30",
   "email":"test@test.com",
   "salary":"12345",
-  "department":"QA" 
+  "department":"QA",
+  "updatedFirstName": "Gerimedica",
+  "updatedLastName": "BV"
 }

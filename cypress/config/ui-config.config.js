@@ -8,6 +8,9 @@ module.exports = defineConfig({
   defaultCommandTimeout: 30000,
   e2e: {  
    baseUrl: "https://demoqa.com/",
+   env: {
+    commandDelay: 20,
+  },
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

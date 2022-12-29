@@ -1,8 +1,10 @@
 class ElementsPage{
 
+    // Webtable
     webTableslLink = '#item-3';
     addNewRecordButton = '#addNewRecordButton';
     recordRowElements = '[class="rt-tr -even"] , [class="rt-tr -odd"]';
+    editSecondRowButton = '#edit-record-2';
 
     // Add New Record
     firstNameTextBox = '#firstName';
@@ -13,8 +15,16 @@ class ElementsPage{
     departmentTextBox = '#department';
     submitButton = '#submit';
 
+    // Broken Links-Images
+    brokenLinksImageLink = '#item-6';
+    brokenImageImg = 'div> img:nth-child(6)';
+
     get webTables(){
         return cy.get(this.webTableslLink);
+    }
+
+    get brokenLinkImages(){
+        return cy.get(this.brokenLinksImageLink);
     }
 
     get recordRows(){
@@ -51,6 +61,14 @@ class ElementsPage{
 
     get submit(){
         return cy.get(this.submitButton);
+    }
+
+    get editSecondRow(){
+        return cy.get(this.editSecondRowButton);
+    }
+
+    get brokenImage(){
+        return cy.get(this.brokenImageImg);
     }
 }
 
