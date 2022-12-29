@@ -5,6 +5,12 @@ import 'cypress-file-upload';
 let testData;
 
 describe('', ()=>{
+    
+    before(() => {
+      Cypress.on('uncaught:exception', (err, runnable) => {
+        return false;
+      });
+    })
 
     beforeEach(() => {
         cy.visit('/');
@@ -17,9 +23,9 @@ describe('', ()=>{
       // Verify Progress bar
       widgetsPage.progressBarLink.click();
       widgetsPage.startStopButton.click();
-      cy.wait(10000);
-      widgetsPage.progressBar.should('have.text', '100%');
-
+      widgetsPage.progressBar.should('have.text', '100%', {setTimeout:10000});
+      //verify progress bar color
+      widgetsPage.progressBar.should('have.css', 'background-color', 'rgb(233, 236, 239)')
 
     })
 

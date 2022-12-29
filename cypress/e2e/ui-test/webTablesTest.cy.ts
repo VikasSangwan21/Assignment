@@ -10,6 +10,9 @@ describe('', ()=>{
         cy.fixture('registrationData.json').then((data) => {
           testData = data;
         })
+        Cypress.on('uncaught:exception', (err, runnable) => {
+          return false;
+        });
       })
 
     beforeEach(() => {
