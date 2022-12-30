@@ -7,7 +7,7 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
   defaultCommandTimeout: 30000,
   e2e: {  
-   baseUrl: "https://demoqa.com/",
+   baseUrl: "https://bookstore.toolsqa.com/",
    specPattern:[
     "cypress/e2e/api-test/*"
   ],

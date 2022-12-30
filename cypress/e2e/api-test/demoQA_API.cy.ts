@@ -6,7 +6,7 @@ let testData = require ('../../fixtures/api_testData.json');
 describe('', ()=>{
     
     // test to create user account and add list of books to it
-    it.only('Create user account and add list of books', ()=>{
+    it('Create user account and add list of books', ()=>{
 
         // dynamic username to avoid duplicates
         let userName = 'test'+Date.now();
@@ -80,7 +80,25 @@ describe('', ()=>{
                     expect(response.body).has.property('message', testData.bookExistsMsg);
         
                 }); 
- 
+
+                // verify deleting books
+                cy.request({
+                    method: 'DELETE',
+                    url : endpoints.updateBook,
+                    failOnStatusCode: false,
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+token
+                    },
+                    body :{
+                        "isbn": testData.isbn,
+                        "userId": response.body.userID
+                      }
+                }).then((response) =>{
+                    // verify delete request successful
+                    expect(response.status).eq(204);
+        
+                }); 
             })   
         
         });
@@ -89,7 +107,7 @@ describe('', ()=>{
     })
 
     // Negetive scenario password criteria 
-    it.only('Creation of user account with invalid password', ()=>{
+    it('Creation of user account with invalid password', ()=>{
         let userName = 'test'+Date.now();
         cy.request({
             method: 'POST',
@@ -110,5 +128,27 @@ describe('', ()=>{
         });
     })
 
+    // Negetive scenario delete request
+    it('Verify unauthorised delete request', ()=>{
+        cy.authenticateToolsQA("InvalidUser", "InvalidPassword").then((token) =>{
+            cy.request({
+                method: 'DELETE',
+                url : endpoints.updateBook,
+                failOnStatusCode: false,
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+token
+                },
+                body :{
+                    "isbn": testData.isbn,
+                    "userId": "userID"
+                }
+            }).then((response) =>{
+                // verify delete request successful
+                expect(response.status).eq(401);
+
+            }); 
+        });
+    })
 
 })

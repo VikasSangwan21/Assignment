@@ -1,4 +1,5 @@
 {
     "createUser":"Account/v1/User",
-    "updateBooks":"BookStore/v1/Books"
+    "updateBooks":"BookStore/v1/Books",
+    "updateBook":"BookStore/v1/Book"
 }
